@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "estruturas.h"
+#include "pessoas.h"
 #include "disciplinas.h"
 
 int main(int argc, char const *argv[])
@@ -49,7 +50,7 @@ int main(int argc, char const *argv[])
                 default:
                     printf("\nComando Invalido.\n");
                     break;
-                    
+
                 }
             } while (comandopessoa != 6);
 
