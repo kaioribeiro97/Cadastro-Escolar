@@ -29,7 +29,7 @@ typedef struct Aluno
 
 typedef struct Professor
 {
-    char pis[11];
+    char pis[12];
 } professor;
 
 typedef struct Cadastro

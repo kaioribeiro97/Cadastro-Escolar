@@ -266,7 +266,7 @@ void alterarDados(cadastros pessoa[], int *qtda)
 {
     int tipo;
     long int matricula;
-    char pis[11];
+    char pis[12];
     int achou;
     int controle;
     int id_pessoa;
