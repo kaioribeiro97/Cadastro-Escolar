@@ -280,7 +280,7 @@ void exibeDisciplina(disciplina *Disciplinas, int qtdDisciplinas)
     }
 };
 
-int main(int argc, char const *argv[])
+/* int main(int argc, char const *argv[])
 {
     escola escola;
     int controle = 0;
@@ -386,4 +386,4 @@ int main(int argc, char const *argv[])
     } while (controle != 6);
 
     return 0;
-}
+} */
