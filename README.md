@@ -7,7 +7,7 @@ Instruções de compilação, para compilar o programa use os seguintes comandos
 
 * Como utilizar, primeiro através do principal.c, que é o código principal do sistema, acessar o sistema de pessoas ou o sistema de disciplinas, ao acessar o menu sistema de pessoas, aparecerá para o usuário uma tela com as seguintes opções Cadastrar, Remover, Exibir todos os dados, Exibir dados de uma pessoa, Alterar dados de uma pessoa. Cada uma dessas opções reflete em uma função do código. O mesmo vale para o sistema de disciplinas com suas respectivas funções.
 
-#Sistema de pessoas
+# Sistema de Pessoas
 O código fonte das seguintes funções está em pessoas.c, com seus headers em pessoas.h
 1 - Cadastrar: A função cadastrar insere os dados de uma pessoa, Nome, Sobrenome, Brasileiro? (0 - Brasileiro, 1 - Estrangeiro), Caso seja Brasileiro: Número do CPF e Número do RG, Caso seja estrangeiro: Número do Passaporte e Nome do País de Origem,
 Dia, mês e ano de nascimento, Portador de Necessidades Especiais (PNE)? (0 - Não, 1 - Sim), Caso seja PNE, deve possuir um código  de 10 caracteres do Laudo médico, CEP, Endereço, Aluno? (0 - Aluno, 1 - Professor).
@@ -42,7 +42,7 @@ A função só admite mudança caso o novo dado seja diferente do anterior, caso
 
 6- Função de ajuda: A função help serve apenas para exibir o menu de opções.
 
-#Sistema de disciplinas
+# Sistema de Disciplinas
 O código fonte das seguintes funções está em disciplinas.c, com seus headers em disciplinas.h
 1- Cadastrar disciplina: A função cadastrarDisciplina, essa função deve cadastrar as disciplinas da escola, atribuindo assim um código, nome, carga e PIS do professor que ministrará a disciplina, logo temos que ter ao menos um professor cadastrado no sistema antes de cadastrar uma disciplina, toda disciplina necessariamente precisa de um docente.
 A entrada é feita da seguinte forma: 
