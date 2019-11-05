@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-
 typedef struct Brasileiro
 {
     char cpf[13];
@@ -220,6 +219,8 @@ void exibirdados(cadastros pessoa[], int *qtda)
     printf("Exibindo dados \n");
     for(int i = 0; i < *qtda; i++)
     {
+        printf("//////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+        printf("Pessoa %d:\n", i);
         printf("Nome: %s\n",pessoa[i].nome);
         printf("Sobrenome: %s \n",pessoa[i].sobrenome);
         printf("Data de nascimento: %d/",pessoa[i].dia);
@@ -245,11 +246,11 @@ void exibirdados(cadastros pessoa[], int *qtda)
         printf("Endereco: %s\n", pessoa[i].endereco);
         if(pessoa[i].tipo==0)
         {
-            printf("Matricula: %d\n", pessoa[i].aluno.matricula);
+            printf("Matricula: %d\n\n", pessoa[i].aluno.matricula);
         }
         if(pessoa[i].tipo==1)
         {
-            printf("PIS: %s\n", pessoa[i].professor.pis);
+            printf("PIS: %s\n\n", pessoa[i].professor.pis);
         }
     }
 }
@@ -267,10 +268,8 @@ void alterarDados(cadastros pessoa[], int *qtda)
     int cep;
     char endereco[200];
 
-    printf("\nAluno 0 ou Professor 1?");
+    printf("\nDigite 0 para Aluno ou 1 para Professor:");
     scanf("%d", &tipo);
-    //if (tipo == 1 || tipo == 0)
-    //{
         if (tipo == 0)
         {
             printf("\nDigite a matricula: \n");
@@ -290,7 +289,7 @@ void alterarDados(cadastros pessoa[], int *qtda)
                 switch (controle)
                 {
                 case 1:
-                    printf("\nPNE?\n");
+                    printf("\nPNE 1 para sim, 0 para não:\n");
                     scanf("%i", &pnet);
                     if (pnet == 1 || pnet == 0)
                     {
@@ -361,7 +360,6 @@ void alterarDados(cadastros pessoa[], int *qtda)
             scanf("%s", pis);
             for (int i = 0; i <= *qtda; i++)
             {
-                //if (pessoa[i].professor.pis == pis)
                  if(atoi(pis)==atoi(pessoa[i].professor.pis))
                 {
                     achou = 1;
@@ -442,7 +440,7 @@ void alterarDados(cadastros pessoa[], int *qtda)
             }
         }
 }
-//}
+
 
 void exibe_pessoax(cadastros pessoa[], int *qtda)
 {
@@ -488,7 +486,8 @@ void exibe_pessoax(cadastros pessoa[], int *qtda)
         printf("Pessoa nao encontrada!");
         return;
     }
-    printf("Exibindo dados da pessoa, posicao %d:\n", pos);
+    printf("//////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("Exibindo dados da pessoa %d:\n", pos);
 
     printf("Nome: %s\n",pessoa[pos].nome);
     printf("Sobrenome: %s \n",pessoa[pos].sobrenome);
@@ -515,11 +514,11 @@ void exibe_pessoax(cadastros pessoa[], int *qtda)
     printf("Endereco: %s\n", pessoa[pos].endereco);
     if(pessoa[pos].tipo==0)
     {
-        printf("Matricula: %d\n", pessoa[pos].aluno.matricula);
+        printf("Matricula: %d\n\n", pessoa[pos].aluno.matricula);
     }
     if(pessoa[pos].tipo==1)
     {
-        printf("PIS: %s\n", pessoa[pos].professor.pis);
+        printf("PIS: %s\n\n", pessoa[pos].professor.pis);
     }
 }
 
@@ -581,3 +580,4 @@ void main()
         scanf("%d",&comando);
     }
 }
+
