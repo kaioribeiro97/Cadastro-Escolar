@@ -1,60 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
-typedef struct Brasileiro
-{
-    char cpf[13];
-    char rg[9];
-} brasileiro;
-
-typedef struct Estrangeiro
-{
-    char passaporte[10];
-    char pais_orig[20];
-} estrangeiro;
-
-typedef struct PNE
-{
-    char laudo[10];
-} pne;
-
-typedef struct Aluno
-{
-    long int matricula;
-} aluno;
-
-typedef struct Professor
-{
-    char pis[11];
-} professor;
-
-typedef struct Cadastro
-{
-    char nome[15];
-    char sobrenome[30];
-    int nacionalidade;
-    union
-    {
-        brasileiro brasileiro;
-        estrangeiro estrangeiro;
-    };
-    int tipo;
-    union
-    {
-        aluno aluno;
-        professor professor;
-    };
-    int pnet;
-    union
-    {
-        pne pne;
-    };
-    int dia;
-    int mes;
-    int ano;
-    int cep;
-    char endereco[200];
-} cadastros ;
+#include "estruturas.h"
 
 //cadastros cs;
 void cadastrar(cadastros pessoa[], int *qtda, int *qtda_al, int *qtda_prof)
@@ -181,38 +127,99 @@ void cadastrar(cadastros pessoa[], int *qtda, int *qtda_al, int *qtda_prof)
     (*qtda)++;
 }
 
-void removerpessoa(cadastros pessoa[], int *qtda)
+void removerpessoa(cadastros pessoa[], int *qtda, int *qtda_disc, int *qtda_al, int *qtda_prof, disciplina disciplinas[])
 {
-    char nremov[30];
-    int pos=0,i;
-    printf("Digite o nome do aluno que deseja remover: \n");
+    char aux[11];
+    long int aux2;
+    int tipo;
+    int i;
+    int pos=0;
+    printf("Se a pessoa que deseja remover for um aluno, digite 0, caso seja um professor, digite 1:");
+    scanf("%d", &tipo);
     getchar();
-    scanf("%[^\n]s",nremov);
-    getchar();
-    for(i = 0 ; i < *qtda; i++)
+    if(tipo==1)
     {
-        if(strcmp(nremov, pessoa[i].nome)== 0)
+        printf("Digite o pis do professor:");
+        scanf("%s", aux);
+        getchar();
+        for(i = 0 ; i < *qtda_disc; i++)
         {
-            printf("Aluno encontrado!\n");
-            pos = i;
-            (*qtda)--;
-            for(i = pos; i < *qtda; i++)
+            if(atoi(aux)==atoi(disciplinas[i].professordisciplina.professor.pis))
             {
-                pessoa[i] = pessoa[i+1];
+                printf("Professor encontrado em uma disciplina, impossivel remover!\n");
+                return;
             }
         }
-        else
+        for(i = 0 ; i < *qtda; i++)
         {
-            pos = -1;
+            if(atoi(aux)==atoi(pessoa[i].professor.pis))
+            {
+                printf("Professor encontrado!\n");
+                pos = i;
+                (*qtda)--;
+                (*qtda_prof)--;
+                for(i = pos; i < *qtda; i++)
+                {
+                    pessoa[i] = pessoa[i+1];
+                }
+            }
+            else
+            {
+                pos = -1;
+            }
         }
+        if(pos == -1)
+        {
+            printf("Pessoa nao cadastrada!\n");
+            return;
+        }
+        printf("A pessoa da posicao %d foi deletada\n",pos);
     }
-    if(pos == -1)
+
+    if(tipo==0)
     {
-        printf("Pessoa nao cadastrada!\n");
-        return;
+
+        printf("Digite a matricula do aluno:");
+        scanf("%ld", &aux2);
+        getchar();
+        for(i = 0 ; i < *qtda_disc; i++)
+        {
+            for(int j=0 ; j < disciplinas[i].qtdAlunos ; j++)
+            {
+                if(aux2==disciplinas[i].alunos[j].aluno.matricula)
+                {
+                    printf("Aluno encontrado em uma disciplina, impossivel remover!\n");
+                    return;
+                }
+            }
+        }
+        for(i = 0 ; i < *qtda; i++)
+        {
+            if(aux2==pessoa[i].aluno.matricula)
+            {
+                printf("Aluno encontrado!\n");
+                pos = i;
+                (*qtda)--;
+                (*qtda_al)--;
+                for(i = pos; i < *qtda; i++)
+                {
+                    pessoa[i] = pessoa[i+1];
+                }
+            }
+            else
+            {
+                pos = -1;
+            }
+        }
+        if(pos == -1)
+        {
+            printf("Pessoa nao cadastrada!\n");
+            return;
+        }
+        printf("A pessoa da posicao %d foi deletada\n",pos);
     }
-    printf("A pessoa %s, posicao %d foi deletada\n",pessoa[pos].nome,pos);
 }
+
 
 void exibirdados(cadastros pessoa[], int *qtda)
 {
@@ -270,175 +277,176 @@ void alterarDados(cadastros pessoa[], int *qtda)
 
     printf("\nDigite 0 para Aluno ou 1 para Professor:");
     scanf("%d", &tipo);
-        if (tipo == 0)
+    if (tipo == 0)
+    {
+        printf("\nDigite a matricula: \n");
+        scanf("%ld",&matricula);
+        for (int i = 0; i <= *qtda; i++)
         {
-            printf("\nDigite a matricula: \n");
-            scanf("%ld",&matricula);
-            for (int i = 0; i <= *qtda; i++){
-                if (pessoa[i].aluno.matricula == matricula)
-                {
-                    achou = 1;
-                    id_pessoa = i;
-                    break;
-                }
-                }
-            if (achou == 1)
+            if (pessoa[i].aluno.matricula == matricula)
             {
-                printf("\n1 - Portador de Necessidades especiais?\n2 - Codigo do laudo medico\n3 - CEP\n4 - Endereco\n");
-                scanf("%i", &controle);
-                switch (controle)
-                {
-                case 1:
-                    printf("\nPNE 1 para sim, 0 para não:\n");
-                    scanf("%i", &pnet);
-                    if (pnet == 1 || pnet == 0)
-                    {
-                        if (pessoa[id_pessoa].pnet != pnet)
-                        {
-                            if (pnet == 1)
-                            {
-                                pessoa[id_pessoa].pnet = 1;
-                                printf("\nDigite o laudo: \n");
-                                scanf("%s", pessoa[id_pessoa].pne.laudo);
-                            }
-                            else if(pnet == 0)
-                            {
-                                pessoa[id_pessoa].pnet = 0;
-                                //strcpy(pessoa[id_pessoa].pne.laudo, NULL);
-                            }
-                        }
-                        else
-                        {
-                            printf("\nStatus ja presente no sistema.\n");
-                        }
-                    }
-                    else
-                    {
-                        printf("\nValor Invalido.\n");
-                    }
-                    break;
-
-                case 2:
-                    if (pessoa[id_pessoa].pnet == 1)
-                    {
-                        printf("\nDigite o novo laudo: \n");
-                        scanf("%s", laudo);
-                        strcpy(pessoa[id_pessoa].pne.laudo, laudo);
-                    }
-                    else
-                    {
-                        printf("\nO aluno nao eh PNE.");
-                    }
-                    break;
-
-                case 3:
-                    printf("\nDigite o novo CEP\n");
-                    scanf("%i", &cep);
-                    pessoa[id_pessoa].cep = cep;
-                    break;
-
-                case 4:
-                    printf("\nDigite o novo endereco\n");
-                    getchar();
-                    scanf("%[^\n]s", endereco);
-                    strcpy(pessoa[id_pessoa].endereco, endereco);
-                    break;
-                default:
-                    printf("Comando invalido \n");
-                    break;
-                }
-            }
-            else if(achou != 1)
-            {
-                printf("\nAluno nao encontrado.\n");
-                return;
+                achou = 1;
+                id_pessoa = i;
+                break;
             }
         }
-        if (tipo == 1)
+        if (achou == 1)
         {
-            printf("Digite o Pis do professor: \n");
-            scanf("%s", pis);
-            for (int i = 0; i <= *qtda; i++)
+            printf("\n1 - Portador de Necessidades especiais?\n2 - Codigo do laudo medico\n3 - CEP\n4 - Endereco\n");
+            scanf("%i", &controle);
+            switch (controle)
             {
-                 if(atoi(pis)==atoi(pessoa[i].professor.pis))
+            case 1:
+                printf("\nPNE 1 para sim, 0 para não:\n");
+                scanf("%i", &pnet);
+                if (pnet == 1 || pnet == 0)
                 {
-                    achou = 1;
-                    id_pessoa = i;
-                    break;
-                }
-            }
-            if (achou == 1 )
-            {
-                printf("\n1 - Portador de Necessidades especiais?\n2 - Codigo do laudo medico\n3 - CEP\n4 - Endereco\n");
-                scanf("%i", &controle);
-                switch (controle)
-                {
-                case 1:
-                    printf("\nPNE?\n");
-                    scanf("%i", &pnet);
-                    if (pnet == 1 || pnet == 0)
+                    if (pessoa[id_pessoa].pnet != pnet)
                     {
-                        if (pessoa[id_pessoa].pnet != pnet)
+                        if (pnet == 1)
                         {
-                            if (pnet == 1)
-                            {
-                                pessoa[id_pessoa].pnet = 1;
-                                printf("\nDigite o laudo: \n");
-                                scanf("%s", pessoa[id_pessoa].pne.laudo);
-                            }
-                             else if(pnet == 0)
-                            {
-                                pessoa[id_pessoa].pnet = 0;
-                                //strcpy(pessoa[id_pessoa].pne.laudo, NULL);
-                            }
+                            pessoa[id_pessoa].pnet = 1;
+                            printf("\nDigite o laudo: \n");
+                            scanf("%s", pessoa[id_pessoa].pne.laudo);
                         }
-                        else
+                        else if(pnet == 0)
                         {
-                            printf("\nStatus ja presente no sistema.\n");
+                            pessoa[id_pessoa].pnet = 0;
+                            //strcpy(pessoa[id_pessoa].pne.laudo, NULL);
                         }
                     }
                     else
                     {
-                        printf("\nValor Invalido.\n");
+                        printf("\nStatus ja presente no sistema.\n");
                     }
-                    break;
-
-                case 2:
-                    if (pessoa[id_pessoa].pnet == 1)
-                    {
-                        printf("\nDigite o novo laudo: \n");
-                        scanf("%s", laudo);
-                        strcpy(pessoa[id_pessoa].pne.laudo, laudo);
-                    }
-                    else
-                    {
-                        printf("\nO Professor nao eh PNE.");
-                    }
-                    break;
-
-                case 3:
-                    printf("\nDigite o novo CEP\n");
-                    scanf("%i", &cep);
-                    pessoa[id_pessoa].cep = cep;
-                    break;
-
-                case 4:
-                    printf("Digite o novo endereco\n");
-                    getchar();
-                    scanf("%[^\n]s", endereco);
-                    strcpy(pessoa[id_pessoa].endereco, endereco);
-                    break;
-                default:
-                    printf("Comando invalido \n");
-                    break;
                 }
-            }
-            else if(achou != 1)
-            {
-                printf("Professor nao encontrado.\n");
-                return;
+                else
+                {
+                    printf("\nValor Invalido.\n");
+                }
+                break;
+
+            case 2:
+                if (pessoa[id_pessoa].pnet == 1)
+                {
+                    printf("\nDigite o novo laudo: \n");
+                    scanf("%s", laudo);
+                    strcpy(pessoa[id_pessoa].pne.laudo, laudo);
+                }
+                else
+                {
+                    printf("\nO aluno nao eh PNE.");
+                }
+                break;
+
+            case 3:
+                printf("\nDigite o novo CEP\n");
+                scanf("%i", &cep);
+                pessoa[id_pessoa].cep = cep;
+                break;
+
+            case 4:
+                printf("\nDigite o novo endereco\n");
+                getchar();
+                scanf("%[^\n]s", endereco);
+                strcpy(pessoa[id_pessoa].endereco, endereco);
+                break;
+            default:
+                printf("Comando invalido \n");
+                break;
             }
         }
+        else if(achou != 1)
+        {
+            printf("\nAluno nao encontrado.\n");
+            return;
+        }
+    }
+    if (tipo == 1)
+    {
+        printf("Digite o Pis do professor: \n");
+        scanf("%s", pis);
+        for (int i = 0; i <= *qtda; i++)
+        {
+            if(atoi(pis)==atoi(pessoa[i].professor.pis))
+            {
+                achou = 1;
+                id_pessoa = i;
+                break;
+            }
+        }
+        if (achou == 1 )
+        {
+            printf("\n1 - Portador de Necessidades especiais?\n2 - Codigo do laudo medico\n3 - CEP\n4 - Endereco\n");
+            scanf("%i", &controle);
+            switch (controle)
+            {
+            case 1:
+                printf("\nPNE?\n");
+                scanf("%i", &pnet);
+                if (pnet == 1 || pnet == 0)
+                {
+                    if (pessoa[id_pessoa].pnet != pnet)
+                    {
+                        if (pnet == 1)
+                        {
+                            pessoa[id_pessoa].pnet = 1;
+                            printf("\nDigite o laudo: \n");
+                            scanf("%s", pessoa[id_pessoa].pne.laudo);
+                        }
+                        else if(pnet == 0)
+                        {
+                            pessoa[id_pessoa].pnet = 0;
+                            //strcpy(pessoa[id_pessoa].pne.laudo, NULL);
+                        }
+                    }
+                    else
+                    {
+                        printf("\nStatus ja presente no sistema.\n");
+                    }
+                }
+                else
+                {
+                    printf("\nValor Invalido.\n");
+                }
+                break;
+
+            case 2:
+                if (pessoa[id_pessoa].pnet == 1)
+                {
+                    printf("\nDigite o novo laudo: \n");
+                    scanf("%s", laudo);
+                    strcpy(pessoa[id_pessoa].pne.laudo, laudo);
+                }
+                else
+                {
+                    printf("\nO Professor nao eh PNE.");
+                }
+                break;
+
+            case 3:
+                printf("\nDigite o novo CEP\n");
+                scanf("%i", &cep);
+                pessoa[id_pessoa].cep = cep;
+                break;
+
+            case 4:
+                printf("Digite o novo endereco\n");
+                getchar();
+                scanf("%[^\n]s", endereco);
+                strcpy(pessoa[id_pessoa].endereco, endereco);
+                break;
+            default:
+                printf("Comando invalido \n");
+                break;
+            }
+        }
+        else if(achou != 1)
+        {
+            printf("Professor nao encontrado.\n");
+            return;
+        }
+    }
 }
 
 
@@ -452,7 +460,8 @@ void exibe_pessoax(cadastros pessoa[], int *qtda)
     printf("Se a pessoa que deseja exibir for um aluno, digite 0, caso seja um professor, digite 1:");
     scanf("%d", &tipo);
     getchar();
-    if(tipo==1){
+    if(tipo==1)
+    {
 
         printf("Digite o pis do professor:");
         scanf("%s", aux);
@@ -467,7 +476,8 @@ void exibe_pessoax(cadastros pessoa[], int *qtda)
         }
     }
 
-    if(tipo==0){
+    if(tipo==0)
+    {
 
         printf("Digite a matricula do aluno:");
         scanf("%ld", &aux2);
@@ -482,7 +492,8 @@ void exibe_pessoax(cadastros pessoa[], int *qtda)
         }
     }
 
-    if(pos==-1){
+    if(pos==-1)
+    {
         printf("Pessoa nao encontrada!");
         return;
     }
@@ -545,6 +556,8 @@ void main()
     int qtda_al=0;
     int qtda_prof=0;
     int comando;
+    escola escola;
+    int qtda_disc=0;
 
     printf("Digite a opcao que deseja\n");
     scanf("%d",&comando);
@@ -557,7 +570,7 @@ void main()
             cadastrar(pessoa,&qtda,&qtda_al,&qtda_prof);
             break;
         case 2 :
-            removerpessoa(pessoa,&qtda);
+            removerpessoa(pessoa,&qtda,&qtda_disc,&qtda_prof,&qtda_al,escola.disciplinas);
             break;
         case 3 :
             exibirdados(pessoa, &qtda);
@@ -580,4 +593,5 @@ void main()
         scanf("%d",&comando);
     }
 }
+
 
