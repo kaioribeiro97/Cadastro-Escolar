@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include <string.h>
 #include "estruturas.h"
+#include "pessoas.h"
+#include "disciplinas.h"
 
 //cadastros cs;
 void cadastrar(cadastros pessoa[], int *qtda, int *qtda_al, int *qtda_prof)
@@ -25,59 +26,65 @@ void cadastrar(cadastros pessoa[], int *qtda, int *qtda_al, int *qtda_prof)
     getchar();
     scanf("%[^;]s",pessoa[*qtda].sobrenome);
     getchar();
-    while(pessoa[*qtda].nacionalidade < 0 || pessoa[*qtda].nacionalidade > 1)
+    scanf("%d;", &pessoa[*qtda].nacionalidade);
+    if(pessoa[*qtda].nacionalidade<0 || pessoa[*qtda].nacionalidade>1)
     {
-        scanf("%d;", &pessoa[*qtda].nacionalidade);
-        if(pessoa[*qtda].nacionalidade<0 || pessoa[*qtda].nacionalidade>1)
+        printf("nacionalidade invalida!\n");
+        fflush(stdin);
+        exit(0);
+    }
+    if(pessoa[*qtda].nacionalidade==0)
+    {
+        scanf("%[^;]s", pessoa[*qtda].brasileiro.cpf);
+        getchar();
+        if(strlen(pessoa[*qtda].brasileiro.cpf)<11 || strlen(pessoa[*qtda].brasileiro.cpf)>11)
         {
-            printf("nacionalidade invalida, Digite novamente:\n");
+            printf("CPF invalido!\n");
+            fflush(stdin);
+            exit(0);
         }
-        if(pessoa[*qtda].nacionalidade==0)
+        scanf("%[^;]s", pessoa[*qtda].brasileiro.rg);
+        getchar();
+        if(strlen(pessoa[*qtda].brasileiro.rg)<9 || strlen(pessoa[*qtda].brasileiro.rg)>9)
         {
-            scanf("%[^;]s", pessoa[*qtda].brasileiro.cpf);
-            getchar();
-            if(strlen(pessoa[*qtda].brasileiro.cpf)<11 || strlen(pessoa[*qtda].brasileiro.cpf)>11)
-            {
-                printf("CPF invalido! Digite novamente:\n");
-            }
-            scanf("%[^;]s", pessoa[*qtda].brasileiro.rg);
-            getchar();
-            if(strlen(pessoa[*qtda].brasileiro.rg)<9 || strlen(pessoa[*qtda].brasileiro.rg)>9)
-            {
-                printf("RG invalido! Digite novamente:\n");
-            }
-        }
-        if(pessoa[*qtda].nacionalidade==1)
-        {
-            scanf("%[^;]s", pessoa[*qtda].estrangeiro.passaporte);
-            getchar();
-            scanf("%[^;]s", pessoa[*qtda].estrangeiro.pais_orig);
-            getchar();
+            printf("RG invalido!\n");
+            fflush(stdin);
+            exit(0);
         }
     }
-    while(pessoa[*qtda].mes>12 || pessoa[*qtda].dia>31)
+    if(pessoa[*qtda].nacionalidade==1)
     {
-        scanf("%[^/]s", dia);
+        scanf("%[^;]s", pessoa[*qtda].estrangeiro.passaporte);
         getchar();
-        scanf("%[^/]s", mes);
+        scanf("%[^;]s", pessoa[*qtda].estrangeiro.pais_orig);
         getchar();
-        scanf("%[^;]s", ano);
-        getchar();
-        pessoa[*qtda].dia = atoi(dia);
-        pessoa[*qtda].mes = atoi(mes);
-        pessoa[*qtda].ano = atoi(ano);
-        if(pessoa[*qtda].dia>31)
-        {
-            printf("Dia invalido, digite novamente.\n");
-        }
-        if(pessoa[*qtda].mes>12)
-        {
-            printf("Mes invalido, digite novamente.\n");
-        }
-        if(pessoa[*qtda].ano>9999)
-        {
-            printf("Ano invalido, digite novamente.\n");
-        }
+    }
+    scanf("%[^/]s", dia);
+    getchar();
+    scanf("%[^/]s", mes);
+    getchar();
+    scanf("%[^;]s", ano);
+    getchar();
+    pessoa[*qtda].dia = atoi(dia);
+    pessoa[*qtda].mes = atoi(mes);
+    pessoa[*qtda].ano = atoi(ano);
+    if(pessoa[*qtda].dia>31)
+    {
+        printf("Dia invalido!\n");
+        fflush(stdin);
+        exit(0);
+    }
+    if(pessoa[*qtda].mes>12)
+    {
+        printf("Mes invalido!\n");
+        fflush(stdin);
+        exit(0);
+    }
+    if(pessoa[*qtda].ano>9999)
+    {
+        printf("Ano invalido!\n");
+        fflush(stdin);
+        exit(0);
     }
     scanf("%d;", &pessoa[*qtda].pnet);
     if(pessoa[*qtda].pnet==1)
@@ -87,42 +94,42 @@ void cadastrar(cadastros pessoa[], int *qtda, int *qtda_al, int *qtda_prof)
     }
     if(pessoa[*qtda].pnet>1 || pessoa[*qtda].pnet<0)
     {
-        printf("pne invalido! Digite novamente:");
+        printf("pne invalido!");
+        fflush(stdin);
+        exit(0);
     }
-    while(pessoa[*qtda].cep<10000000 || pessoa[*qtda].cep>99999999)
+    scanf("%d;", &pessoa[*qtda].cep);
+    if(pessoa[*qtda].cep<10000000 || pessoa[*qtda].cep>99999999)
     {
-        scanf("%d;", &pessoa[*qtda].cep);
-        if(pessoa[*qtda].cep<10000000 || pessoa[*qtda].cep>99999999)
-        {
-            printf("CEP invalido! Digite novamente:\n");
-        }
+        printf("CEP invalido!\n");
+        fflush(stdin);
+        exit(0);
     }
     scanf("%[^;]s", pessoa[*qtda].endereco);
     getchar();
-    while(pessoa[*qtda].tipo < 0 || pessoa[*qtda].tipo > 1)
+    scanf("%d;", &pessoa[*qtda].tipo);
+    if(pessoa[*qtda].tipo < 0 || pessoa[*qtda].tipo > 1)
     {
-        scanf("%d;", &pessoa[*qtda].tipo);
-        if(pessoa[*qtda].tipo < 0 || pessoa[*qtda].tipo > 1)
+        printf("tipo de pessoa inválido!\n");
+        fflush(stdin);
+        exit(0);
+    }
+    if(pessoa[*qtda].tipo==1)
+    {
+        (*qtda_prof)++;
+        scanf("%[^\n]s", pessoa[*qtda].professor.pis);
+        getchar();
+        if(strlen(pessoa[*qtda].professor.pis)<11 || strlen(pessoa[*qtda].professor.pis)>11)
         {
-            printf("tipo de pessoa inválido! Digite novamente:\n");
+            printf("pis invalido! Digite novamente:");
+            fflush(stdin);
+            exit(0);
         }
-        if(pessoa[*qtda].tipo==1)
-        {
-            (*qtda_prof)++;
-            scanf("%[^\n]s", pessoa[*qtda].professor.pis);
-            getchar();
-            if(strlen(pessoa[*qtda].professor.pis)<11 || strlen(pessoa[*qtda].professor.pis)>11)
-            {
-                printf("pis invalido! Digite novamente:");
-                scanf("%[^\n]s", pessoa[*qtda].professor.pis);
-                getchar();
-            }
-        }
-        if(pessoa[*qtda].tipo==0)
-        {
-            pessoa[*qtda].aluno.matricula=19000+*qtda_al;
-            (*qtda_al)++;
-        }
+    }
+    if(pessoa[*qtda].tipo==0)
+    {
+        pessoa[*qtda].aluno.matricula=19000+*qtda_al;
+        (*qtda_al)++;
     }
     (*qtda)++;
 }
