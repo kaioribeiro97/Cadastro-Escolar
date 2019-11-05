@@ -14,7 +14,7 @@ int cadastraDisciplina(cadastros *Pessoas, disciplina *Disciplinas, int qtdDisci
     if (qtdDisciplinas < 10)
     {
         printf("\nDigite o codigo, o nome, a carga horaria e o PIS do professor da materia (codigo;nome;carga.pis): \n");
-        scanf("%i;%15[^;];%i;%s", &codigo, nome, &carga, pis);
+        scanf("%i;%[^;];%i;%s", &codigo, nome, &carga, pis);
         printf("%s\n", nome);
         printf("%i\n", codigo);
         printf("%i\n", carga);
