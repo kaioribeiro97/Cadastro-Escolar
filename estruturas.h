@@ -75,9 +75,6 @@ typedef struct Escola
 {
     cadastros pessoas[60];
     disciplina disciplinas[10];
-    int qtdProfessores;
-    int qtdAlunos;
-    int qtdDisciplinas;
 } escola;
 
 static const struct Cadastro EmptyStruct;
