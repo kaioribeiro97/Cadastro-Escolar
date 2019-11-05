@@ -7,8 +7,8 @@
 
 typedef struct Brasileiro
 {
-    char cpf[13];
-    char rg[9];
+    char cpf[12];
+    char rg[10];
 } brasileiro;
 
 typedef struct Estrangeiro
