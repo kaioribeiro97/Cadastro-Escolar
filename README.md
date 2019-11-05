@@ -15,7 +15,7 @@ Lembrar que os dados que serão inseridos devem seguir o padrão de entrada e o 
 A entrada deve ser feita da seguinte forma, cada dado do usuário deve ser seguido de um ";" em uma linha só de entrada.
 Exemplos:
 
-Caso seja Brasileiro, não PNE e é um aluno:
+Caso seja Brasileiro, não PNE e é um aluno: /br/
 nome;sobrenome;0;CPF;RG;DD/MM/AAAA;0;CEP;ENDEREÇO;0
 Caso seja Brasileiro, PNE e é um aluno:
 nome;sobrenome;0;CPF;RG;DD/MM/AAAA;1;LAUDO;CEP;ENDEREÇO;0
