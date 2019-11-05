@@ -3,7 +3,7 @@
 #include <string.h>
 #include "estruturas.h"
 
-int cadastraDisciplina(cadastros *Pessoas, disciplina *Disciplinas, int qtdDisciplinas);
+int cadastraDisciplina(cadastros *Pessoas, disciplina *Disciplinas, int qtdDisciplinas, int qtdPessoas);
 
 void alteraDisciplina(cadastros *Pessoas, disciplina *Disciplinas);
 

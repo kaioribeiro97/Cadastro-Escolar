@@ -63,7 +63,7 @@ int main()
                 switch (comandodisc)
                 {
                 case 1:
-                    resultado = cadastraDisciplina(escola.pessoas, escola.disciplinas, qtdDisciplinas);
+                    resultado = cadastraDisciplina(escola.pessoas, escola.disciplinas, qtdDisciplinas, qtdPessoas);
                     if (resultado == 1)
                     {
                         qtdDisciplinas++;

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "estruturas.h"
 
-int cadastraDisciplina(cadastros *Pessoas, disciplina *Disciplinas, int qtdDisciplinas)
+int cadastraDisciplina(cadastros *Pessoas, disciplina *Disciplinas, int qtdDisciplinas, int qtdPessoas)
 {
     char pis[12];
     int codigo = 0;
@@ -16,7 +16,7 @@ int cadastraDisciplina(cadastros *Pessoas, disciplina *Disciplinas, int qtdDisci
         printf("\nDigite o codigo, o nome, a carga horaria e o PIS do professor da materia (codigo;nome;carga.pis): \n");
         scanf("%i;%[^;];%i;%s", &codigo, nome, &carga, pis);
 
-        for (int i = 0; i <= (sizeof(Pessoas) / sizeof(Pessoas[0])) + 1; i++)
+        for (int i = 0; i <= qtdPessoas; i++)
         {
             if (atoi(Pessoas[i].professor.pis) == atoi(pis))
             {
@@ -216,6 +216,7 @@ void removeAluno(disciplina *Disciplinas, cadastros *Pessoas, int qtdAlunos)
                     Disciplinas[id_disciplina].alunos[i] = EmptyStruct;
                 }
             }
+            Disciplinas[id_disciplina].qtdAlunos--;
             printf("\nAluno removido com sucesso.\n");
             return;
         }
