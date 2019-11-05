@@ -267,7 +267,7 @@ void alterarDados(cadastros pessoa[], int *qtda)
     int cep;
     char endereco[200];
 
-    printf("\nAluno ou Professor?");
+    printf("\nAluno 0 ou Professor 1?");
     scanf("%d", &tipo);
     //if (tipo == 1 || tipo == 0)
     //{
