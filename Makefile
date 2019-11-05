@@ -1,13 +1,10 @@
-principal:	principal.o	pessoas.o	disciplinas.o
-	gcc principal.o pessoas.o disciplinas.o -o principal
-
-principal.o:	principal.c
-	gcc -c principal.c
-
-pessoas.o:	pessoas.c	pessoas.h
+principal:	pessoas.o	disciplinas.o
+	gcc principal.c pessoas.o disciplinas.o -o principal
+	
+pessoas.o:
 	gcc -c pessoas.c
 
-disciplinas.o:	disciplinas.c	disciplinas.h
+disciplinas.o:
 	gcc -c disciplinas.c
 
 clean:

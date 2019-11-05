@@ -548,7 +548,7 @@ void help()
 
 }
 
-void main()
+/* void main()
 {
     help();
     cadastros pessoa[20];
@@ -595,3 +595,4 @@ void main()
 }
 
 
+ */

@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include "estruturas.h"
+#include "pessoas.h"
+#include "disciplinas.h"
 
-void cadastrar(cadastros pessoa[], int *qtda, int *qtda_al, int *qtda_prof)
+/* void cadastrar(cadastros pessoa[], int *qtda, int *qtda_al, int *qtda_prof)
 {
     char dia[3];
     char mes[3];
@@ -533,7 +535,7 @@ void exibe_pessoax(cadastros pessoa[], int *qtda)
 
 int cadastraDisciplina(cadastros *Pessoas, disciplina *Disciplinas, int qtdDisciplinas)
 {
-    char pis[11];
+    char pis[12];
     int codigo = 0;
     char nome[30];
     int carga = 0;
@@ -542,11 +544,20 @@ int cadastraDisciplina(cadastros *Pessoas, disciplina *Disciplinas, int qtdDisci
     if (qtdDisciplinas < 10)
     {
         printf("\nDigite o codigo, o nome, a carga horaria e o PIS do professor da materia (codigo;nome;carga.pis): \n");
-        scanf("%i;%[^;];%i;%s", &codigo, nome, &carga, pis);
+        getchar();
+        scanf("%d", &codigo);
+        getchar();
+        scanf("%[a-zA-Z0-9 ]s", nome);
+        getchar();
+        scanf("%d;%s", &carga, pis);
+        getchar();
+        
+
         printf("%s\n", nome);
-        printf("%i\n", codigo);
-        printf("%i\n", carga);
+        printf("%d\n", codigo);
+        printf("%d\n", carga);
         printf("%s\n", pis);
+       
         printf("%s\n", Pessoas[qtdDisciplinas].professor.pis);
 
         for (int i = 0; i <= (sizeof(Pessoas) / sizeof(Pessoas[0])) + 1; i++)
@@ -806,7 +817,7 @@ void exibeDisciplina(disciplina *Disciplinas, int qtdDisciplinas)
         printf("\nDisciplina nao encontrada.\n");
         return;
     }
-};
+}; */
 
 int main()
 {

@@ -5,7 +5,7 @@
 
 void cadastrar(cadastros pessoa[], int *qtda, int *qtda_al, int *qtda_prof);
 
-void removerpessoa(cadastros pessoa[], int *qtda, int *qtda_disc, int *qtda_al, int *qtda_prof, disciplina disciplinas[])
+void removerpessoa(cadastros pessoa[], int *qtda, int *qtda_disc, int *qtda_al, int *qtda_prof, disciplina disciplinas[]);
 
 void exibirdados(cadastros pessoa[], int *qtda);
 

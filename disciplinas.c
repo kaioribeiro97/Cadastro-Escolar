@@ -5,7 +5,7 @@
 
 int cadastraDisciplina(cadastros *Pessoas, disciplina *Disciplinas, int qtdDisciplinas)
 {
-    char pis[11];
+    char pis[12];
     int codigo = 0;
     char nome[30];
     int carga = 0;
@@ -386,4 +386,5 @@ void exibeDisciplina(disciplina *Disciplinas, int qtdDisciplinas)
     } while (controle != 6);
 
     return 0;
-} */
+}
+ */
