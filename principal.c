@@ -9,6 +9,7 @@ int main(int argc, char const *argv[])
     int qtdPessoas = 0;
     int qtdAlunos = 0;
     int qtdProfessores = 0;
+    int qtdDisciplinas = 0;
     int resultado = 0;
     do
     {
@@ -28,10 +29,10 @@ int main(int argc, char const *argv[])
                 switch (controle)
                 {
                 case 1:
-                    resultado = cadastraDisciplina(escola.pessoas, escola.disciplinas, escola.qtdDisciplinas);
+                    resultado = cadastraDisciplina(escola.pessoas, escola.disciplinas, qtdDisciplinas);
                     if (resultado == 1)
                     {
-                        escola.qtdDisciplinas++;
+                        qtdDisciplinas++;
                     }
                     break;
 
@@ -40,15 +41,15 @@ int main(int argc, char const *argv[])
                     break;
 
                 case 3:
-                    adicionaAluno(escola.disciplinas, escola.pessoas, qtdPessoas, escola.qtdAlunos);
+                    adicionaAluno(escola.disciplinas, escola.pessoas, qtdPessoas, qtdAlunos);
                     break;
 
                 case 4:
-                    removeAluno(escola.disciplinas, escola.pessoas, escola.qtdAlunos);
+                    removeAluno(escola.disciplinas, escola.pessoas, qtdAlunos);
                     break;
 
                 case 5:
-                    exibeDisciplina(escola.disciplinas, escola.qtdDisciplinas);
+                    exibeDisciplina(escola.disciplinas, qtdDisciplinas);
                     break;
 
                 case 6:
