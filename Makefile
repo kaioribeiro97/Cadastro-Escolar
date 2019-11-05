@@ -1,4 +1,4 @@
-principal:	principal.o	pessoas.o disciplinas.o
+principal:	principal.o	pessoas.o	disciplinas.o
 	gcc principal.o pessoas.o disciplinas.o -o principal
 
 principal.o:	principal.c
