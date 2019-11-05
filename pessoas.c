@@ -51,7 +51,7 @@ void cadastrar(cadastros pessoa[], int *qtda, int *qtda_al, int *qtda_prof)
         {
             scanf("%[^;]s", pessoa[*qtda].estrangeiro.passaporte);
             getchar();
-            scanf("%[^;]s", &pessoa[*qtda].estrangeiro.pais_orig);
+            scanf("%[^;]s", pessoa[*qtda].estrangeiro.pais_orig);
             getchar();
         }
     }
