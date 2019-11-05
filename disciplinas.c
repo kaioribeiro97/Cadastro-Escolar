@@ -284,8 +284,8 @@ void exibeDisciplina(disciplina *Disciplinas, int qtdDisciplinas)
 {
     escola escola;
     int controle = 0;
-    escola.qtdDisciplinas = 0;
-    escola.qtdAlunos = 2;
+    int qtdDisciplinas = 0;
+    int qtdAlunos = 2;
     int qtdPessoas = 4;
     int resultado = 0;
 
@@ -352,10 +352,10 @@ void exibeDisciplina(disciplina *Disciplinas, int qtdDisciplinas)
         switch (controle)
         {
         case 1:
-            resultado = cadastraDisciplina(escola.pessoas, escola.disciplinas, escola.qtdDisciplinas);
+            resultado = cadastraDisciplina(escola.pessoas, escola.disciplinas, qtdDisciplinas);
             if (resultado == 1)
             {
-                escola.qtdDisciplinas++;
+                qtdDisciplinas++;
             }
             break;
 
@@ -364,15 +364,15 @@ void exibeDisciplina(disciplina *Disciplinas, int qtdDisciplinas)
             break;
 
         case 3:
-            adicionaAluno(escola.disciplinas, escola.pessoas, qtdPessoas, escola.qtdAlunos);
+            adicionaAluno(escola.disciplinas, escola.pessoas, qtdPessoas, qtdAlunos);
             break;
 
         case 4:
-            removeAluno(escola.disciplinas, escola.pessoas, escola.qtdAlunos);
+            removeAluno(escola.disciplinas, escola.pessoas, qtdAlunos);
             break;
 
         case 5:
-            exibeDisciplina(escola.disciplinas, escola.qtdDisciplinas);
+            exibeDisciplina(escola.disciplinas, qtdDisciplinas);
             break;
 
         case 6:
