@@ -82,14 +82,4 @@ typedef struct Escola
 
 static const struct Cadastro EmptyStruct;
 
-int cadastraDisciplina(cadastros *Pessoas, disciplina *Disciplinas, int qtdDisciplinas);
-
-void alteraDisciplina(cadastros *Pessoas, disciplina *Disciplinas);
-
-void adicionaAluno(disciplina *Disciplinas, cadastros *Pessoas, int qtdPessoas, int qtdAlunos);
-
-void removeAluno(disciplina *Disciplinas, cadastros *Pessoas, int qtdAlunos);
-
-void exibeDisciplina(disciplina *Disciplinas, int qtdDisciplinas);
-
 #endif
